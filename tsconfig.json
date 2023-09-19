@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "moduleResolution":"Node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports":true
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    // "swc": true,
+    // "require": ["tsconfig-paths/register"],
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
+}

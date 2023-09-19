@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>省市县三级数据压缩</title>
+    <style>
+      .container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 8px;
+      }
+
+      .container h3 {
+        margin: 0;
+        padding: 0;
+      }
+
+      .container .buttons {
+        margin-bottom: 8px;
+      }
+
+      .container .inputs {
+        display: flex;
+        margin: 0 -4px;
+      }
+
+      .container .inputs > div {
+        flex: 1;
+        margin: 4px;
+      }
+
+      textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>本程序实现了对“省市区”进行压缩的功能，实现了数据压缩为原来的1/5。</p>
+      <h3>主要压缩原理有：</h3>
+      <ol>
+        <li>
+          把大量重复出现的中文字符根据出现的次数分别压缩成1-2位ascii码，生成字典和压缩数据
+        </li>
+        <li>
+          自定义数据格式来替换json，采用状态机词法token进行解析，节省了json中的“引号，逗号，空格，键名”等格式数据
+        </li>
+        <li>
+          使用多级策略编码“省市区”code字段，使用前缀模式实现1级，2级，3级的code减少到2位数字（市级共享省级前缀，区级共享市级前缀），<br />
+          使用差值法储存code信息，比如
+          “北京市/市辖区/东城区”的code为“110101”，而“西城区”的code为“110102”，那么西城区code可以表示为“1”（110102
+          - 110101）<br />
+          大多数时候，相邻的编码的差值会大量出现连续的1，比如：“1211111231111”，这种多个连续字符的格式可以采用编码处理成“12(5个1)23(4个1)”
+        </li>
+      </ol>
+      <div class="buttons">
+        <button id="doEncode">编码</button>
+        <button id="doDecode">解码</button>
+        <span id="encodeInfo"></span>
+      </div>
+      <div class="inputs">
+        <div>
+          <h3>原始的省市区JSON数据</h3>
+          <textarea id="rawAreaData" rows="30"></textarea>
+        </div>
+        <div>
+          <h3>编码的省市区数据</h3>
+          <textarea id="encodeAreaData" rows="30"></textarea>
+        </div>
+        <div>
+          <h3>解压出的省市区数据</h3>
+          <textarea id="decodeAreaData" rows="30"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <script src="./areaData.js"></script>
+    <script src="./encode.js"></script>
+    <script src="./decode.js"></script>
+  </body>
+</html>

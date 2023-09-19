@@ -1,0 +1,33 @@
+{
+  "name": "cn-area-data",
+  "version": "0.0.1",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "keywords": [],
+  "description": "中国行政规划-省市区数据",
+  "author": "shushu <sschen86@163.com>",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "rimraf ./dist && rollup -c ./build/prod.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@shushu.pro/eslint-config-base": "^0.1.0",
+    "@shushu.pro/rollup": "^0.2.0",
+    "@shushu.pro/tsconfig": "^0.0.5",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
